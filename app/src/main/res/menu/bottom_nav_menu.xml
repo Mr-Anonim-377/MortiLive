@@ -4,17 +4,17 @@
 
     <item
             android:id="@+id/character"
-            android:icon="@drawable/ic_dashboard_black_24dp"
+
             android:title="Персонажи"/>
 
     <item
             android:id="@+id/location"
-            android:icon="@drawable/ic_notifications_black_24dp"
+
             android:title="Локации"/>
 
     <item
             android:id="@+id/episode"
-            android:icon="@drawable/ic_1563552926"
+
             android:title="Эпизоды"/>
 
 </menu>

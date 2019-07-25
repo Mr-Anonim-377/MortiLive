@@ -4,12 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import com.example.mortilive.MainActivity
 import com.example.mortilive.MyPager
 import com.example.mortilive.R
+import com.example.mortilive.R.id.bottomNavigationView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_home_2.*
 
 class HomeFragment : Fragment() {
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home_2, container, false)
@@ -23,6 +29,40 @@ class HomeFragment : Fragment() {
             viewPage.width)
 
         viewPage.adapter = adapter
+
+
+
+        container.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY < oldScrollY) { // up
+                (activity as? HomeFragmentInteractor)?.onScrollLisener(1)
+
+            }
+            if (scrollY > oldScrollY) { // down
+                (activity as? HomeFragmentInteractor)?.onScrollLisener(0)
+            }
+        })
+
+
+
+
+
     }
+
+
+interface HomeFragmentInteractor{
+
+
+
+    fun onScrollLisener(move:Int)
+
+
+
+
+
+}
+
+
+
+
 
 }

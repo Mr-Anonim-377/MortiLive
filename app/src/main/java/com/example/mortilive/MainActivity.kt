@@ -1,35 +1,30 @@
 package com.example.mortilive
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
+import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.mortilive.fragment.HomeFragment
-import kotlinx.android.synthetic.main.activity_main_layout.*
-import kotlinx.android.synthetic.main.fragment_home_2.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentInteractor {
+    override fun onScrollLisener(move: Int) {
+        if(move == 1) {
+        animateNavigation(false)
 
+        } else {
+            animateNavigation(true)
 
-
-    private lateinit var textMessage: TextView
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.character -> {
-                textMessage.setText(R.string.title_dashboard)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.episode -> {
-                textMessage.setText(R.string.title_notifications)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.location -> {
-                textMessage.setText(R.string.title_home)
-                return@OnNavigationItemSelectedListener true
-            }
         }
-        false
     }
+
+    private var mTextMessage: TextView? = null
+    private var navigation: BottomNavigationView? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -38,17 +33,61 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().replace(R.id.frame_layot, HomeFragment()).commit()
 
+        initComponent()
+    }
+
+    private fun initComponent() {
 
 
 
+        navigation = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        navigation!!.setOnNavigationItemSelectedListener(object :
+            BottomNavigationView.OnNavigationItemSelectedListener {
+            override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                when (item.itemId) {
+                    R.id.character -> {
+                        mTextMessage?.text = item.title
+                        navigation!!.setColor(R.color.brown_700)
+                        return true
+                    }
+                    R.id.location -> {
+                        mTextMessage?.text = item.title
+                        navigation!!.setColor(R.color.pink_800)
+                        return true
+                    }
+                    R.id.episode -> {
+                        mTextMessage?.text = item.title
+                        navigation!!.setColor(R.color.grey_700)
+                        return true
+                    }
 
-
-
-
+                }
+                return false
+            }
+        })
 
 
     }
 
 
-    //val time = object : CountDownTimer
+    private var isNavigationHide = false
+    public fun animateNavigation(hide: Boolean) {
+        if (isNavigationHide && hide || !isNavigationHide && !hide) return
+        isNavigationHide = hide
+        val moveY = if (hide) 2 * navigation!!.height else 0
+        navigation!!.animate().translationY(moveY.toFloat()).setStartDelay(200).setDuration(400).start()
+    }
+
+
+
+
+
+}
+
+
+
+fun View.setColor(@ColorRes colorId: Int) {
+    val color = ContextCompat.getColor(context, colorId)
+
+    setBackgroundColor(color)
 }
