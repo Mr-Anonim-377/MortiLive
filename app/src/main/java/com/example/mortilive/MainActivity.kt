@@ -8,6 +8,8 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.mortilive.fragment.HomeFragment
+import com.example.mortilive.fragment.HomeFragment_three
+import com.example.mortilive.fragment.HomeFragment_twoo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentInteractor {
@@ -47,17 +49,20 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentInteractor {
                 when (item.itemId) {
                     R.id.character -> {
                         mTextMessage?.text = item.title
-                        navigation!!.setColor(R.color.brown_700)
+                        navigation!!.setColor(R.color.teal_600)
+                        supportFragmentManager.beginTransaction().replace(R.id.frame_layot, HomeFragment()).commit()
                         return true
                     }
                     R.id.location -> {
                         mTextMessage?.text = item.title
-                        navigation!!.setColor(R.color.pink_800)
+                        navigation!!.setColor(R.color.pink_600)
+                        supportFragmentManager.beginTransaction().replace(R.id.frame_layot, HomeFragment_twoo()).commit()
                         return true
                     }
                     R.id.episode -> {
                         mTextMessage?.text = item.title
-                        navigation!!.setColor(R.color.grey_700)
+                        navigation!!.setColor(R.color.orange_600)
+                        supportFragmentManager.beginTransaction().replace(R.id.frame_layot, HomeFragment_three()).commit()
                         return true
                     }
 
