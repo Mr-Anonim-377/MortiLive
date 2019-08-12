@@ -33,7 +33,6 @@
                             android:layout_width="?attr/actionBarSize"
                             android:layout_height="?attr/actionBarSize"
                             android:background="@android:color/transparent"
-                            android:tint="@color/grey_60"
                             app:srcCompat="@drawable/ic_1563552926" tools:ignore="VectorDrawableCompat"/>
 
                     <EditText
@@ -42,10 +41,12 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:hint="Search product"
+                            android:hint="Поиск"
                             android:imeOptions="actionSearch"
                             android:maxLines="1"
-                            android:singleLine="true">
+                            android:singleLine="true" android:textColor="#E9226D" android:textColorHighlight="#E9226D"
+                            android:textColorHint="#A13B63" android:textColorLink="#E9226D"
+                            >
 
                         <requestFocus/>
 
@@ -57,7 +58,7 @@
                             android:layout_height="?attr/actionBarSize"
                             android:background="@android:color/transparent"
                             android:clickable="true"
-                            android:tint="@color/grey_60"
+                            android:tint="#E9226D"
                             app:srcCompat="@drawable/ic_close" tools:ignore="VectorDrawableCompat"/>
 
                 </LinearLayout>
@@ -102,17 +103,17 @@
             <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="281dp" tools:srcCompat="@tools:sample/avatars"
-                    android:id="@+id/imageView4"
+                    android:id="@+id/image1"
                     android:layout_marginTop="10dp"/>
             <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="281dp" tools:srcCompat="@tools:sample/avatars"
-                    android:id="@+id/imageView2"
+                    android:id="@+id/image2"
                     android:layout_marginTop="10dp"/>
             <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="281dp" tools:srcCompat="@tools:sample/avatars"
-                    android:id="@+id/imageView3"
+                    android:id="@+id/image3"
                     android:layout_marginTop="10dp"/>
         </LinearLayout>
 

@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentInteractor {
         if (isNavigationHide && hide || !isNavigationHide && !hide) return
         isNavigationHide = hide
         val moveY = if (hide) 2 * navigation!!.height else 0
-        navigation!!.animate().translationY(moveY.toFloat()).setStartDelay(200).setDuration(400).start()
+        navigation!!.animate().translationY(moveY.toFloat()).setStartDelay(300).setDuration(400).start()
     }
 
 

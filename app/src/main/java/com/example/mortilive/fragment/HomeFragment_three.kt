@@ -29,16 +29,21 @@ class HomeFragment_three : Fragment() {
 
 
 
+        var scrollSum : Int = 0
+
         container.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (scrollY < oldScrollY) { // up
-                (activity as? HomeFragmentInteractor)?.onScrollLisener(1)
+            scrollSum += scrollY - oldScrollY
+            if (scrollSum < 140) { // up
+                println("---------------------------     $scrollY             $oldScrollY   $scrollSum")
+                (activity as? HomeFragment.HomeFragmentInteractor)?.onScrollLisener(1)
 
             }
-            if (scrollY > oldScrollY) { // down
-                (activity as? HomeFragmentInteractor)?.onScrollLisener(0)
+            if (scrollSum > 350) { // down
+                println("---------------------------     $scrollY             $oldScrollY     $scrollSum")
+                (activity as? HomeFragment.HomeFragmentInteractor)?.onScrollLisener(0)
+
             }
         })
-
 
 
 
@@ -46,17 +51,6 @@ class HomeFragment_three : Fragment() {
     }
 
 
-interface HomeFragmentInteractor{
-
-
-
-    fun onScrollLisener(move:Int)
-
-
-
-
-
-}
 
 
 
