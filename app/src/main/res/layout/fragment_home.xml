@@ -76,35 +76,58 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="335dp"
+                    android:layout_height="123dp"
                     android:layout_marginTop="20dp">
 
                 <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="335dp" tools:srcCompat="@tools:sample/avatars"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" tools:srcCompat="@tools:sample/avatars"
                         android:id="@+id/image1"
-                        tools:ignore="MissingConstraints" android:contentDescription="TODO"/>
+                        tools:ignore="MissingConstraints" tools:layout_editor_absoluteY="0dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/cardView"/>
+                <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:cardBackgroundColor="#B3E9538D"
+                        android:id="@+id/cardView"
+                        app:cardPreventCornerOverlap="false"
+                        tools:ignore="MissingConstraints"
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image1"
+                >
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/spacing_large"
+                            android:paddingRight="@dimen/spacing_large"
+                            android:text="Скачать"
+                            android:textColor="@color/grey_90" android:layout_alignTop="@+id/cardView"
+                            android:layout_above="@+id/cardView" android:layout_alignStart="@+id/cardView"
+                            android:layout_alignLeft="@+id/cardView"/>
+
+                </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="123dp"
                     android:layout_marginTop="20dp">
                 <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="335dp" tools:srcCompat="@tools:sample/avatars"
+                        android:layout_height="match_parent" tools:srcCompat="@tools:sample/avatars"
                         android:id="@+id/image2"
                         tools:ignore="MissingConstraints"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="335dp"
+                    android:layout_height="123dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp">
                 <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="335dp" tools:srcCompat="@tools:sample/avatars"
+                        android:layout_height="match_parent" tools:srcCompat="@tools:sample/avatars"
                         android:id="@+id/image3"
-                        android:layout_margin="20dp"
                         tools:layout_editor_absoluteY="20dp" tools:layout_editor_absoluteX="20dp"
                         tools:ignore="MissingConstraints"/>
             </androidx.constraintlayout.widget.ConstraintLayout>

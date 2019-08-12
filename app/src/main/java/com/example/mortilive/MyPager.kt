@@ -103,7 +103,7 @@ class MyPager(private val context: Context, private val imageList: List<String>,
 
 
         val folder =
-            File(context.filesDir, "Test")//the dot makes this directory hidden to the user
+            File("/storage/emulated/0/Download", "Test")//the dot makes this directory hidden to the user
 
 
         folder.mkdir()
