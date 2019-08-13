@@ -13,13 +13,8 @@ import androidx.cardview.widget.CardView
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import android.graphics.BitmapFactory
-import android.R.attr.bitmap
 import java.net.URL
 import android.graphics.Bitmap
-import android.os.Environment
-import java.nio.file.Files.exists
-import android.system.Os.mkdir
-import android.os.Environment.getExternalStorageDirectory
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
@@ -63,7 +58,7 @@ class MyPager(private val context: Context, private val imageList: List<String>,
                 .override(width,height)
                 .into(image)
             dialog.show()
-            val cardViev : CardView = dialog.findViewById(R.id.cardView)
+            val cardViev : CardView = dialog.findViewById(R.id.СardView_3)
 
             cardViev.setOnClickListener {
                 val thread = Thread {

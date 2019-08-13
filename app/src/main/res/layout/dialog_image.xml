@@ -17,7 +17,7 @@
                 android:layout_width="210dp"
                 android:layout_height="42dp"
                 app:cardBackgroundColor="#B3E9538D"
-                android:id="@+id/cardView"
+                android:id="@+id/СardView_3"
                 app:cardPreventCornerOverlap="false"
                 android:layout_alignRight="@+id/dialogImage" android:layout_marginRight="9dp"
                 android:layout_marginEnd="9dp" android:layout_alignEnd="@+id/dialogImage"
@@ -34,9 +34,9 @@
                     android:paddingLeft="@dimen/spacing_large"
                     android:paddingRight="@dimen/spacing_large"
                     android:text="Скачать"
-                    android:textColor="@color/grey_90" android:layout_alignTop="@+id/cardView"
-                    android:layout_above="@+id/cardView" android:layout_alignStart="@+id/cardView"
-                    android:layout_alignLeft="@+id/cardView"/>
+                    android:textColor="@color/grey_90" android:layout_alignTop="@+id/СardView_3"
+                    android:layout_above="@+id/СardView_3" android:layout_alignStart="@+id/СardView_3"
+                    android:layout_alignLeft="@+id/СardView_3"/>
 
         </androidx.cardview.widget.CardView>
         <ImageView
