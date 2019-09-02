@@ -1,5 +1,6 @@
 package com.example.mortilive
 
+import android.Manifest
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -7,12 +8,32 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.mortilive.Network.App
 import com.example.mortilive.fragment.HomeFragment
 import com.example.mortilive.fragment.HomeFragment_three
 import com.example.mortilive.fragment.HomeFragment_twoo
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.single.PermissionListener
+import java.lang.Exception
+import java.lang.reflect.Executable
+
 
 class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentInteractor {
+    var page = 1
+    val thread = Thread{
+        try{
+        val response = App.getApi().getData("bash", 50).execute().body()
+        print(response)
+        print(response)}
+        catch (e:Exception ){
+        e.printStackTrace()
+        }
+
+    }
     override fun onScrollLisener(move: Int) {
         if(move == 1) {
         animateNavigation(false)
@@ -36,6 +57,12 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentInteractor {
         supportFragmentManager.beginTransaction().replace(R.id.frame_layot, HomeFragment()).commit()
 
         initComponent()
+
+        thread.start()
+
+
+
+
     }
 
     private fun initComponent() {
@@ -72,6 +99,31 @@ class MainActivity : AppCompatActivity(), HomeFragment.HomeFragmentInteractor {
         })
 
 
+        Dexter.withActivity(this)
+            .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .withListener(object : PermissionListener {
+                override fun onPermissionRationaleShouldBeShown(
+                    permission: com.karumi.dexter.listener.PermissionRequest?,
+                    token: PermissionToken?
+                ) {
+                    token?.continuePermissionRequest()
+                }
+
+                override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                    // permission is granted, open the camera
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                    // check for permanent denial of permission
+                    if (response.isPermanentlyDenied) {
+                        // navigate user to app settings
+                    }
+                }
+
+
+            }).check()
+
+
     }
 
 
@@ -96,3 +148,6 @@ fun View.setColor(@ColorRes colorId: Int) {
 
     setBackgroundColor(color)
 }
+
+
+

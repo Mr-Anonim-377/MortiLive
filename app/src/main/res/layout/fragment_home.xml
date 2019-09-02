@@ -75,47 +75,60 @@
             </androidx.viewpager.widget.ViewPager>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cart"
                     android:layout_width="match_parent"
                     android:layout_height="123dp"
                     android:layout_marginTop="20dp">
 
                 <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" tools:srcCompat="@tools:sample/avatars"
                         android:id="@+id/image1"
-                        tools:ignore="MissingConstraints" tools:layout_editor_absoluteY="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         app:layout_constraintStart_toStartOf="parent"
-                />
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteY="0dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
                 <androidx.cardview.widget.CardView
+                        android:id="@+id/СardView_5"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:cardBackgroundColor="#CDE0155D"
-                        android:id="@+id/СardView_5"
                         app:cardPreventCornerOverlap="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image1"
                         tools:ignore="MissingConstraints"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image1"
                         tools:layout_editor_absoluteY="56dp">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
+
                         <TextView
-                                android:text="Test Test"
+                                android:id="@+id/textView4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/textView4"
-                                android:layout_marginTop="36dp" app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="44dp"
-                                android:layout_marginStart="44dp" app:fontFamily="@font/architects_daughter"
-                                android:textColor="@color/grey_5" android:gravity="center"/>
+                                android:layout_marginStart="44dp"
+                                android:layout_marginLeft="44dp"
+                                android:layout_marginTop="36dp"
+                                android:gravity="center"
+                                android:text="Test Test"
+                                android:textColor="@color/grey_5"
+                                app:fontFamily="@font/architects_daughter"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
                         <androidx.cardview.widget.CardView
                                 android:layout_width="94dp"
                                 android:layout_height="25dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginRight="10dp"
                                 android:layout_marginBottom="8dp"
                                 app:cardBackgroundColor="@color/overlay_dark_20"
                                 app:cardCornerRadius="@dimen/spacing_medium"
-                                app:cardElevation="0dp" app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_marginEnd="10dp" app:layout_constraintEnd_toEndOf="parent"
-                                android:layout_marginRight="10dp">
+                                app:cardElevation="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent">
 
                             <LinearLayout
                                     android:layout_width="match_parent"
@@ -128,7 +141,7 @@
                                         android:gravity="center"
                                         android:text="Подробнее"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                                        android:textColor="@color/grey_5"/>
+                                        android:textColor="@color/grey_5" />
 
                             </LinearLayout>
 

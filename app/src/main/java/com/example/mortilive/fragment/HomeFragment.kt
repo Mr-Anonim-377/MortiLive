@@ -57,6 +57,8 @@ class HomeFragment : Fragment() {
                 (activity as? HomeFragmentInteractor)?.onScrollLisener(0)
 
             }
+
+
         })
 
         bt_clear.setOnClickListener {

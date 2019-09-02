@@ -1,7 +1,9 @@
 package com.example.mortilive
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -12,14 +14,25 @@ import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
-import android.graphics.BitmapFactory
-import java.net.URL
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Environment
+import com.bumptech.glide.request.target.CustomTarget
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
+import android.webkit.PermissionRequest
+import android.Manifest.permission
+import android.app.Activity
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.single.PermissionListener
 
 
+@Suppress("DEPRECATION")
 class MyPager(private val context: Context, private val imageList: List<String>, private val height:Int, private val width:Int) : PagerAdapter(){
 
     class SimpleRunnable: Runnable {
@@ -61,23 +74,32 @@ class MyPager(private val context: Context, private val imageList: List<String>,
             val cardViev : CardView = dialog.findViewById(R.id.СardView_3)
 
             cardViev.setOnClickListener {
-                val thread = Thread {
-                    try {
-                        val url = URL(imageList[position])
-                        val conn = url.openConnection()
 
-                        val generator = Random()
-                        var n = 10000
-                        n = generator.nextInt(n)
-                        val image = BitmapFactory.decodeStream(conn.getInputStream())
-                        saveToSdCard(image,"image$n")
 
-                    } catch (ex: Exception) {
-                        ex.printStackTrace()
-                    }
-                    println("${Thread.currentThread()} has run.")
-                }
-                thread.start()
+
+                Glide.with(cardViev.context)
+                    .asBitmap()
+                    .load(imageList[position])
+                    .into(object : CustomTarget<Bitmap>(){
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
+
+                        ) {
+                            saveImage(resource,position);
+                        }
+
+//                        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+//                            imageView.setImageBitmap(resource)
+//                        }
+                        override fun onLoadCleared(placeholder: Drawable?) {
+                            // this is called when imageView is cleared on lifecycle call or for
+                            // some other reason.
+                            // if you are referencing the bitmap somewhere else too other than this imageView
+                            // clear it here as you can no longer have the bitmap
+                        }
+                    })
+//               
 
 
 
@@ -92,40 +114,45 @@ class MyPager(private val context: Context, private val imageList: List<String>,
         return view
     }
 
-    fun saveToSdCard(bitmap: Bitmap, filename: String): String? {
+    private fun saveImage(resource: Bitmap, position: Int): String? {
+        var savedImagePath: String? = null
+        val random = Random()
+        val rand = random.nextInt(1000000)
+        val imageFileName = "JPEG_$rand.jpg"
 
-        var stored: String? = null
+        val storageDir : File =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES + "/MortiLive")
+        var success = true
 
-
-        val folder =
-            File("/storage/emulated/0/Download", "Test")//the dot makes this directory hidden to the user
-
-
-        folder.mkdir()
-
-
-        val file = File(folder.absoluteFile, "$filename.jpg")
-
-        if (file.exists())
-
-            return "Файл с таким именени уже есть"
-        try {
-
-
-            val out = FileOutputStream(file)
-
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
-
-
-            out.flush()
-            out.close()
-            stored = "Файл сохранен"
-        } catch (e: Exception) {
-            e.printStackTrace()
+        if (!storageDir.exists()) {
+            success = storageDir.mkdirs()
         }
 
-        return stored
+        if (success) {
+            val imageFile = File(storageDir, imageFileName)
+            savedImagePath = imageFile.absolutePath
+            try {
+                val fOut = FileOutputStream(imageFile)
+                resource.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
+                fOut.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            galleryAddPic(savedImagePath)
+
+        }
+        return savedImagePath;
     }
+
+    private fun galleryAddPic(savedImagePath: String) {
+       val  mediaScanIntent : Intent =  Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+        val f = File(savedImagePath)
+        val contentUri = Uri.fromFile(f)
+        mediaScanIntent.data = contentUri
+        context.sendBroadcast(mediaScanIntent)
+    }
+
+
     /*
     This callback is responsible for destroying a page. Since we are using view only as the
     object key we just directly remove the view from parent container
